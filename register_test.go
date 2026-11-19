@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	//"github.com/grafana/xk6-sql/sqltest"
+	"github.com/grafana/xk6-sql/sqltest"
 	"github.com/stretchr/testify/require"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
@@ -35,6 +35,7 @@ func TestIntegration(t *testing.T) {
 		testcontainers.WithWaitStrategy(
 			wait.ForListeningPort("8080/tcp").WithStartupTimeout(10*time.Second),
 		),
+		testcontainers.WithCmdArgs("-m"),
 	)
 	require.NoError(t, err, "Failed to start container")
 
@@ -49,5 +50,5 @@ func TestIntegration(t *testing.T) {
 	connectionString := fmt.Sprintf("http://%s:%s", host, mappedPort.Port())
 	t.Logf("HA is ready and listening at: %s", connectionString)
 
-	//sqltest.RunScript(t, "remote-ha", connectionString, script)
+	sqltest.RunScript(t, "remote-ha", connectionString, script)
 }

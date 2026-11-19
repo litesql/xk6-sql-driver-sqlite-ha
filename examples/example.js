@@ -7,9 +7,9 @@ export function setup() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS roster
       (
-        id SERIAL PRIMARY KEY,
-        given_name VARCHAR(50) NOT NULL,
-        family_name VARCHAR(50) NOT NULL
+        id INTEGER PRIMARY KEY,
+        given_name TEXT NOT NULL,
+        family_name TEXT NOT NULL
       );
   `);
 }
